@@ -10,7 +10,7 @@ Greetings! This is Slimebuck here, coming at you with a first in series of free 
 
 This project is aimed to help people learn 2 fundemenals of Godot 3D.
 1) 8 and 4 directional sprites 
-2) Character movement contro
+2) Character movement controls
 
 Anyone wishing to make a 3D shooter using sprites and want to learn how, this example project is aimed to you.
 
