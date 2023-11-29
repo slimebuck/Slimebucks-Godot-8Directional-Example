@@ -1,0 +1,467 @@
+[gd_scene load_steps=19 format=3 uid="uid://c6ft8kphqmkqk"]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_1ghob"]
+[ext_resource type="AudioStream" uid="uid://cvuj8r1btkfyc" path="res://sounds/player/walking.ogg" id="2_jnsw1"]
+[ext_resource type="Texture2D" uid="uid://bapl234gmxe7b" path="res://particles/blob_shadow.png" id="3_0i2cq"]
+[ext_resource type="AudioStream" uid="uid://0puc6q857iia" path="res://sounds/player/revolver_shot1.wav" id="4_vbc44"]
+[ext_resource type="Texture2D" uid="uid://b3obt7t0x4aav" path="res://sprites/player/gun_sprites.png" id="5_idvhb"]
+[ext_resource type="Script" path="res://scripts/example/ui_example.gd" id="6_tya4i"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bnjwb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2636"]
+atlas = ExtResource("5_idvhb")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hm6p"]
+atlas = ExtResource("5_idvhb")
+region = Rect2(512, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5nbv"]
+atlas = ExtResource("5_idvhb")
+region = Rect2(1024, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdget"]
+atlas = ExtResource("5_idvhb")
+region = Rect2(1536, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emw4b"]
+atlas = ExtResource("5_idvhb")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_akquv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2636")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hm6p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5nbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdget")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emw4b")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 10.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nagd2"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_7uekk"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_h8uv4"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_08ay6"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_eaeys"]
+font_size = 32
+font_color = Color(0.643137, 0.129412, 0, 1)
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00286245, 2.38419e-07, 3.45338)
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("1_1ghob")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_bnjwb")
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82303, 0)
+
+[node name="Camera3D" type="Camera3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00822878, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="head"]
+target_position = Vector3(0, -1, -120)
+
+[node name="gun_flash" type="OmniLight3D" parent="head"]
+omni_range = 12.0
+omni_attenuation = 1.86606
+
+[node name="gun_flash2" type="SpotLight3D" parent="head"]
+light_color = Color(0.835294, 0.745098, 0.184314, 1)
+spot_range = 12.0
+spot_angle = 15.0
+
+[node name="Flash_Timer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="SoundFootsteps" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_jnsw1")
+
+[node name="shadow" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.985363, 0)
+size = Vector3(2, 6.87344, 2)
+texture_albedo = ExtResource("3_0i2cq")
+
+[node name="Gunsound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_vbc44")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GunBase" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/GunBase"]
+position = Vector2(741, -196)
+sprite_frames = SubResource("SpriteFrames_akquv")
+animation = &"shoot"
+autoplay = "idle"
+
+[node name="crosshair" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI_Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -843.0
+offset_top = -186.0
+offset_right = 455.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("6_tya4i")
+
+[node name="color_rects" type="Node2D" parent="CanvasLayer/UI_Panel"]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI_Panel/color_rects"]
+offset_left = 1.0
+offset_top = 91.0
+offset_right = 1298.0
+offset_bottom = 126.0
+color = Color(0.317647, 0.317647, 0.317647, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/UI_Panel/color_rects"]
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 1298.0
+offset_bottom = 46.0
+color = Color(0.317647, 0.317647, 0.317647, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/UI_Panel/color_rects"]
+anchors_preset = -1
+anchor_left = 0.477
+anchor_top = 0.559
+anchor_right = 0.477
+anchor_bottom = 0.559
+offset_left = 599.0
+offset_top = 6.0
+offset_right = 639.0
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="chase2" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.852
+anchor_top = 0.361
+anchor_right = 0.852
+anchor_bottom = 0.361
+offset_left = -60.8961
+offset_top = -22.507
+offset_right = 60.1039
+offset_bottom = 22.493
+text = "chase_2
+"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="onpath2" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 732.0
+offset_top = 130.0
+offset_right = 1014.0
+offset_bottom = 175.0
+text = ": Path Movement -"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="ischase2" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 732.0
+offset_top = 45.0
+offset_right = 889.0
+offset_bottom = 90.0
+text = ": Chasing -"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="lookat2" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 735.0
+offset_top = 83.0
+offset_right = 932.0
+offset_bottom = 128.0
+text = ": Looking at -"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="lookpoint2" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 1045.0
+offset_top = 83.0
+offset_right = 1216.0
+offset_bottom = 128.0
+text = "insert_look"
+label_settings = SubResource("LabelSettings_7uekk")
+
+[node name="THORNEDHULK" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 735.0
+offset_top = 3.0
+offset_right = 981.0
+offset_bottom = 62.0
+text = "THORNED HULK"
+label_settings = SubResource("LabelSettings_h8uv4")
+
+[node name="pathallow2" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.883
+anchor_top = 0.799
+anchor_right = 0.883
+anchor_bottom = 0.799
+offset_left = -101.134
+offset_top = -22.413
+offset_right = 99.866
+offset_bottom = 22.587
+text = "path_allow_2
+"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="chase1" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 363.0
+offset_top = 46.0
+offset_right = 484.0
+offset_bottom = 91.0
+text = "chase_1
+"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="ischase1" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 45.0
+offset_right = 213.0
+offset_bottom = 90.0
+text = ": Chasing -"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="onpath1" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 128.0
+offset_right = 338.0
+offset_bottom = 173.0
+text = ": Path Movement -"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="OVERLORD" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 2.0
+offset_right = 181.0
+offset_bottom = 47.0
+text = "OVERLORD"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="pathallow1" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 363.0
+offset_top = 126.0
+offset_right = 564.0
+offset_bottom = 171.0
+text = "path_allow_1"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="lookpoint1" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 363.0
+offset_top = 83.0
+offset_right = 534.0
+offset_bottom = 128.0
+text = "insert_look"
+label_settings = SubResource("LabelSettings_08ay6")
+
+[node name="lookat" type="Label" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 83.0
+offset_right = 261.0
+offset_bottom = 128.0
+text = ":  Looking at -"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="white_keys" type="Node2D" parent="CanvasLayer/UI_Panel"]
+
+[node name="i" type="Label" parent="CanvasLayer/UI_Panel/white_keys"]
+offset_left = 20.0
+offset_top = 46.0
+offset_right = 40.0
+offset_bottom = 91.0
+text = "I"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="n" type="Label" parent="CanvasLayer/UI_Panel/white_keys"]
+offset_left = 9.0
+offset_top = 130.0
+offset_right = 34.0
+offset_bottom = 175.0
+text = "N"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="j" type="Label" parent="CanvasLayer/UI_Panel/white_keys"]
+offset_left = 20.0
+offset_top = 83.0
+offset_right = 30.0
+offset_bottom = 128.0
+text = "J"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="o" type="Label" parent="CanvasLayer/UI_Panel/white_keys"]
+offset_left = 687.0
+offset_top = 45.0
+offset_right = 712.0
+offset_bottom = 90.0
+text = "O"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="m" type="Label" parent="CanvasLayer/UI_Panel/white_keys"]
+offset_left = 687.0
+offset_top = 126.0
+offset_right = 717.0
+offset_bottom = 171.0
+text = "M"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="k" type="Label" parent="CanvasLayer/UI_Panel/white_keys"]
+offset_left = 687.0
+offset_top = 83.0
+offset_right = 707.0
+offset_bottom = 128.0
+text = "K"
+label_settings = SubResource("LabelSettings_nagd2")
+
+[node name="red_keys" type="Node2D" parent="CanvasLayer/UI_Panel"]
+
+[node name="i" type="Label" parent="CanvasLayer/UI_Panel/red_keys"]
+visible = false
+offset_left = 20.0
+offset_top = 46.0
+offset_right = 40.0
+offset_bottom = 91.0
+text = "I"
+label_settings = SubResource("LabelSettings_eaeys")
+
+[node name="j" type="Label" parent="CanvasLayer/UI_Panel/red_keys"]
+visible = false
+offset_left = 20.0
+offset_top = 83.0
+offset_right = 40.0
+offset_bottom = 128.0
+text = "J"
+label_settings = SubResource("LabelSettings_eaeys")
+
+[node name="n" type="Label" parent="CanvasLayer/UI_Panel/red_keys"]
+visible = false
+offset_left = 9.0
+offset_top = 130.0
+offset_right = 34.0
+offset_bottom = 175.0
+text = "N"
+label_settings = SubResource("LabelSettings_eaeys")
+
+[node name="o" type="Label" parent="CanvasLayer/UI_Panel/red_keys"]
+visible = false
+offset_left = 687.0
+offset_top = 45.0
+offset_right = 712.0
+offset_bottom = 90.0
+text = "O"
+label_settings = SubResource("LabelSettings_eaeys")
+
+[node name="k" type="Label" parent="CanvasLayer/UI_Panel/red_keys"]
+visible = false
+offset_left = 687.0
+offset_top = 83.0
+offset_right = 707.0
+offset_bottom = 128.0
+text = "K"
+label_settings = SubResource("LabelSettings_eaeys")
+
+[node name="m" type="Label" parent="CanvasLayer/UI_Panel/red_keys"]
+visible = false
+offset_left = 687.0
+offset_top = 126.0
+offset_right = 717.0
+offset_bottom = 171.0
+text = "M"
+label_settings = SubResource("LabelSettings_eaeys")
+
+[node name="reset" type="Button" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 960.0
+offset_top = -41.0
+offset_right = 1125.0
+offset_bottom = -10.0
+text = "R : Reset"
+
+[node name="quit" type="Button" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 1133.0
+offset_top = -41.0
+offset_right = 1298.0
+offset_bottom = -10.0
+text = "ESC : Quit"
+
+[node name="change_anim" type="Button" parent="CanvasLayer/UI_Panel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -41.0
+offset_right = 263.0
+offset_bottom = -10.0
+text = "Right Mouse: Change animations"
+
+[connection signal="timeout" from="Flash_Timer" to="." method="_on_flash_timer_timeout"]
+[connection signal="animation_finished" from="CanvasLayer/GunBase/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
