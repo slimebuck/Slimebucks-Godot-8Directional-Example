@@ -17,7 +17,7 @@ Anyone wishing to make a 3D shooter using sprites and want to learn how, this ex
 I spent a lot of time perfecting the code making it as tight, efficent and short as possible. 
 
 2) Controls:
-3) 
+
 W - Forward
 
 S - Backward
