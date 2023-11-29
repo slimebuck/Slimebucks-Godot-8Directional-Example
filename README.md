@@ -31,14 +31,22 @@ R - Restart
 ESC - Quit
 
 OVERLORD Controls:
+
 I - Toggle Chase Mode
+
 J - Change Look Direction  - directions to choose from = Red box - Blue box - Player - Path (Stopped after chase mode actived) and the other sprite.
+
 N -Start or stop Path Movement. (Note, when chase mode enabled the path is disabled. To re use the paths press R to restart)
 
+
 THORNED HULK Controls:
+
 O - Toggle chase mode
+
 K - Change Look Direction - directions to choose from = Red box - Blue box - Player - Path (Stopped after chase mode actived) and the other sprite.
+
 M - Start or stop Path Movement. (Note, when chase mode enabled the path is disabled. To re use the paths press R to restart)
+
 
 	
 3)	this Project is a 8 directional sprite controller that controls getting positions, vectors between positions those positions,
