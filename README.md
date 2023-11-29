@@ -17,17 +17,23 @@ Anyone wishing to make a 3D shooter using sprites and want to learn how, this ex
 I spent a lot of time perfecting the code making it as tight, efficent and short as possible. 
 
 2) Controls:
+3) 
 W - Forward
+
 S - Backward
+
 A - Left
+
 D - Right
 
 Space - Jump
 
 Left Mouse Button - shoot animation (does nothing, just for lols)
+
 Right Mouse Button - Change Sprites Animation type, There is walk, attack_1 and attack_2
 
 R - Restart
+
 ESC - Quit
 
 OVERLORD Controls:
