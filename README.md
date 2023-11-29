@@ -110,13 +110,20 @@ M - Start or stop Path Movement. (Note, when chase mode enabled the path is disa
  4)  Credits
    
    2.5d Godot 4 project by styroxx. his syste, while flawed, is the starting point of my journey making this example. This project is owed to him
+   
    gun sprite - gun sound - audio script - Miziziziz Tutorials - https://www.youtube.com/watch?v=jzbgH4AMtI8
+   
    Godot Discord Dev Chat
-   ChatGPT - interactive documentation and info look up.
+   
+   ChatGPT - interactive documentation and info look up
+   
    Overlord sprite - Duke Nukem 3D. 3D Realms made that art, I don't know who owns it now
+   
    Thorned Hulk - Diablo 2 - Blizzard North 
+   
    beta ground texture - Kenney beta textures
-   Michael
+   
    my amazing wife, none of this would be possible without her support
+   
    shout out to the GKillers! ill hit yal up behind the dollar store and we play some fortnite - RIP CS GO - *in radio voice* MICHEAL! MICHAEL, DON'T LEAVE ME! MICHAEL!!"
    
