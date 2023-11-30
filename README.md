@@ -14,7 +14,13 @@ This project is aimed to help people learn 2 fundemenals of Godot 3D.
 
 Anyone wishing to make a 3D shooter using sprites and want to learn how, this example project is aimed to you.
 
-I spent a lot of time perfecting the code making it as tight, efficent and short as possible. 
+
+In the example there is two 8 directional sprite characters walking on a circle path.
+They start out looking at the direction they are travelling. (their personal lookpoint)
+They each have a green bar infront of them showing what direction they are looking / moving.
+
+There is buttons to control monster move on the path, where they are looking, chase mode toggle, and change animation
+
 
 2) Controls:
 
