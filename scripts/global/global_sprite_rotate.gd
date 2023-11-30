@@ -24,6 +24,11 @@ extends AnimatedSprite3D
 	## of something between 0 and 360 we can then use a circle divided into 8 sections
 	## to decide what sprite to show the player.
 	##
+	##
+	## For the front angle It is split into 2, because it crosses between 360 and 0
+	## I tried having it 1 lone of code before, but it had random issues, where this way
+	## it acts reliable.
+	##
 	## degrees 337.6 to 360 front (first half)
 	## degrees 0 - 22.5 = front (second half)
 	## degrees 22.6 to 67.5 = front_right
@@ -157,6 +162,10 @@ func state_animation():
 	## We input the angle of the sprite to the player from the lookpoint
 	## and based on what degrees is inputed in, is what animation direction is shown
 	##
+	## For the front angle It is split into 2, because it crosses between 360 and 0
+	## I tried having it 1 lone of code before, but it had random issues, where this way
+	## it acts reliable.
+	##
 	## degrees 337.6 to 360 front (first half)
 	## degrees 0 - 22.5 = front (second half)
 	## degrees 22.6 to 67.5 = front_right
@@ -168,7 +177,10 @@ func state_animation():
 	## degrees 292.6 to 337.5 front_left
 	##
 	##
+	##
 	## for 4 directional sprites you would use these values
+	##
+	## Again, the front is split up into 2 sectons as it crosses 360 to 0.
 	##
 	## degrees 292.6 to 360 front (first half)
 	## degrees 0 to 67.5 = front_right
