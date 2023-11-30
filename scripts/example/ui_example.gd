@@ -9,6 +9,7 @@ extends Panel
 var spot1 : String = "path"
 var spot2 : String = "path"
 var spot_connector : String 
+var ui_sprite_select
 
 	## bool for chase_1 and chase_2 toggles
 var ui_chase_1 : bool = false
@@ -21,9 +22,10 @@ var ui_chase_2 : bool = false
 
 
 func _process(_delta):
+	
+	
 	## function to make the ui control keys change color when the key is presssed
 	change_key_color()
-	
 	
 	## Is chasing: in UI
 	if ui_chase_1:
@@ -58,15 +60,21 @@ func _process(_delta):
 		## as the player does not stop moving when that happens, that way once it actually comes to
 		## a stop it will start to say STOPPED
 	
-	if ui_chase_1 == true and player.pathkill_1 and spot1 == "path" and sprite_1.current_speed == 0:
-		spot1 = "stopped"
-	else:
-		$lookpoint1.text = spot1
-
-	if ui_chase_2 == true and player.pathkill_2 and spot2 == "path" and sprite_2.current_speed == 0:
-		spot2 = "stopped"
-	else:
-		$lookpoint2.text = spot2
+	
+	if ui_sprite_select == 1:
+		if ui_chase_1 == true and player.pathkill_1 and spot_connector == "path" and sprite_1.current_speed == 0:
+			spot_connector = "stopped"
+		else:
+		#	if spot_connector == "other_sprite_1": spotconnector = "Overlord"
+			$lookpoint1.text = spot_connector
+		
+		
+	if ui_sprite_select == 2:	
+		if ui_chase_2 == true and player.pathkill_2 and spot_connector == "path" and sprite_2.current_speed == 0:
+			spot_connector = "stopped"
+		else:
+			$lookpoint2.text = spot_connector
+			print(ui_sprite_select)
 	
 	
 func change_key_color():

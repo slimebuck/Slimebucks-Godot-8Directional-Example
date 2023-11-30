@@ -180,19 +180,6 @@ offset_right = 1298.0
 offset_bottom = 46.0
 color = Color(0.317647, 0.317647, 0.317647, 1)
 
-[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/UI_Panel/color_rects"]
-anchors_preset = -1
-anchor_left = 0.477
-anchor_top = 0.559
-anchor_right = 0.477
-anchor_bottom = 0.559
-offset_left = 599.0
-offset_top = 6.0
-offset_right = 639.0
-offset_bottom = 187.0
-grow_horizontal = 2
-grow_vertical = 0
-
 [node name="chase2" type="Label" parent="CanvasLayer/UI_Panel"]
 layout_mode = 1
 anchors_preset = -1
@@ -241,7 +228,7 @@ offset_left = 1045.0
 offset_top = 83.0
 offset_right = 1216.0
 offset_bottom = 128.0
-text = "insert_look"
+text = "Path"
 label_settings = SubResource("LabelSettings_7uekk")
 
 [node name="THORNEDHULK" type="Label" parent="CanvasLayer/UI_Panel"]
@@ -321,7 +308,7 @@ offset_left = 363.0
 offset_top = 83.0
 offset_right = 534.0
 offset_bottom = 128.0
-text = "insert_look"
+text = "Path"
 label_settings = SubResource("LabelSettings_08ay6")
 
 [node name="lookat" type="Label" parent="CanvasLayer/UI_Panel"]

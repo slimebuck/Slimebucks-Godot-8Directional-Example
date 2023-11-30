@@ -242,8 +242,10 @@ func start_stop_move_2():
 func change_lookpoint_selector():
 	if Input.is_action_just_pressed("change_lookpoint_1"):
 		switch_lookpoint(sprite_1.sprite3d)
+		player.ui_panel.ui_sprite_select = 1
 	if Input.is_action_just_pressed("change_lookpoint_2"):
 		switch_lookpoint(sprite_2.sprite3d)
+		player.ui_panel.ui_sprite_select = 2
 		
 func switch_lookpoint(insert_look):
 	insert_look.sprite_select = insert_look

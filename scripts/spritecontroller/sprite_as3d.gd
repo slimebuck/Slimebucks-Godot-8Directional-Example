@@ -44,6 +44,7 @@ func _process(delta):
 func change_lookpoint(spot):
 	get_parent().current_speed = Global_Sprite_Rotate.SPEED
 	player.ui_panel.spot_connector = spot
+	#player.ui_panel.sprite_select = sprite_select
 	if spot == "red":
 		lookpoint = lookat_red
 	elif spot == "blue":
@@ -62,17 +63,19 @@ func change_lookpoint(spot):
 		lookpoint = s_lookpoint
 	elif spot == "other_sprite":
 		if sprite_select == sprite_1.sprite3d:
-			change_lookpoint("other_sprite_1")
+			change_lookpoint("THORNED HULK")
 		if sprite_select == sprite_2.sprite3d:
-			change_lookpoint("other_sprite_2")
-	elif spot == "other_sprite_2":
+			change_lookpoint("OVERLORD")
+	elif spot == "OVERLORD":
 		lookpoint = sprite_1
 	else:
 		lookpoint = sprite_2
 		
-	if sprite_select == Global_Sprite_Rotate.sprite_1.sprite3d:
+		
+		
+	if sprite_select == Global_Sprite_Rotate.sprite_1:
 		player.ui_panel.spot1 = spot
-	if sprite_select == Global_Sprite_Rotate.sprite_2.sprite3d:
+	if sprite_select == Global_Sprite_Rotate.sprite_2:
 		player.ui_panel.spot2 = spot
 
 	### end of change lookpoint function

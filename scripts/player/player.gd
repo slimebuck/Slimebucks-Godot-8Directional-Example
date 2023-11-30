@@ -8,7 +8,6 @@ extends CharacterBody3D
 @onready var gunsound = $Gunsound
 @onready var camera_3d = $head/Camera3D
 @onready var sound_footsteps = $SoundFootsteps
-@onready var deathscreen = $CanvasLayer/deathscreen
 @onready var gun_flash = $head/gun_flash
 @onready var gun_flash2 = $head/gun_flash2
 @onready var flash_timer = $Flash_Timer
@@ -34,14 +33,6 @@ extends CharacterBody3D
 ## If the player can shoot
 @export var can_shoot : bool = true
 
-## Players MAXimum health number
-@export var player_MAX_heath :int = 10000
-
-## Player's current health
-@export var player_health :int = 10000
-
-## Player is dead
-@export var dead :bool = false
 
 ## Players mouse sensitivity as a float
 @export var mouse_sensitivity = 0.002
@@ -68,8 +59,7 @@ var jump_triple : bool = true
 var normal_speed : bool = true
 var normal_speed2 : bool = true
 var normal_speed3 = true
-var fast_mode : bool = false
-var hyper_mode : bool = false 
+
 var forward_held : bool = false
 
 	#example project variables to aid example buttons
@@ -98,34 +88,12 @@ func _process(_delta):
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()
 	if Input.is_action_just_pressed("restart"):
-		_on_button_button_up()
+		get_tree().reload_current_scene()
 	
-
-	# If player is dead do not allow any other actions
-	if dead:
-		return
 		
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
-		
-	if Input.is_action_just_pressed("forward"):
-		forward_held = true
-		
-	if Input.is_action_just_released("forward"):
-		forward_held = false
-		
-	if Input.is_action_just_released("forward") and is_on_floor():
-		normalspeed()
-		
-	if Input.is_action_just_pressed("left"):
-		normalspeed()
-		
-	if Input.is_action_just_pressed("right"):
-		normalspeed()
-		
-	if Input.is_action_just_pressed("back"):
-		normalspeed()
-
+	
 	sprite_chase_button()
 
 
@@ -133,8 +101,6 @@ func _physics_process(delta):
 	if is_on_floor() and velocity.y < 1:
 		jump_single = true
 
-	if dead:
-		return
 	velocity.y += -gravity * delta
 	var input = Input.get_vector("left", "right", "forward", "back")
 	var movement_dir = transform.basis * Vector3(input.x, 0, input.y)
@@ -185,7 +151,7 @@ func _physics_process(delta):
 	# Falling/respawning
 	
 	if position.y < -10:
-		_on_button_button_up()
+		get_tree().reload_current_scene()
 
 
 func action_jump(_delta):
@@ -200,19 +166,16 @@ func action_jump(_delta):
 	
 func _input(event):
 		# If player is dead do not allow movement
-	if dead: return
 		
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * mouse_sensitivity)
-		$head/Camera3D.rotate_x(-event.relative.y * mouse_sensitivity)
-		$head/Camera3D.rotation.x = clampf($head/Camera3D.rotation.x, -deg_to_rad(70), deg_to_rad(70))
+		camera_3d.rotate_x(-event.relative.y * mouse_sensitivity)
+		camera_3d.rotation.x = clampf(camera_3d.rotation.x, -deg_to_rad(70), deg_to_rad(70))
 
 
 	# Fake Bunny Hop system function to return player to base speed
 func normalspeed():
 	normal_speed = true
-	fast_mode = false
-	hyper_mode = false
 	jump_strength_current = jump_strength
 	SPEED_current = SPEED
 
@@ -239,12 +202,6 @@ func _on_flash_timer_timeout():
 func _on_animated_sprite_2d_animation_finished():
 	can_shoot = true
 
-	#Despawn group types when restarting level
-func _on_button_button_up():
-	get_tree().reload_current_scene()
-
-
-
 
 	### NOT PART OF MAIN PROJECT. MONSTER CHASE CONTROLS
 
@@ -265,3 +222,5 @@ func sprite_chase_button():
 		pathkill_2 = true
 	
 	### END OF MONSTER CHASE CONTROLS
+
+
