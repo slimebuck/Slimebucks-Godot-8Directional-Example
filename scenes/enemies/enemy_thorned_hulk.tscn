@@ -2312,7 +2312,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"ra_attack_left",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -2385,8 +2385,7 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 9, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_82gk6")
-animation = &"ra_attack_front_left"
-frame_progress = 0.179872
+animation = &"ra_attack_right"
 script = ExtResource("3_pdlyh")
 
 [node name="private_lookpoint" type="CSGBox3D" parent="." groups=["s_lookpoint"]]

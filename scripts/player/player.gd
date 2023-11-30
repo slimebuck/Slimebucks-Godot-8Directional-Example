@@ -20,9 +20,9 @@ extends CharacterBody3D
 
 
 ## Players base speed
-@export var SPEED : float = 10
+@export var playerSPEED : float = 200
 ## layers current speed
-@export var SPEED_current : float = 10
+@export var playerSPEED_current : float = 10
 
 ## Players base jump strength
 @export var jump_strength : float = 6
@@ -104,14 +104,14 @@ func _physics_process(delta):
 	velocity.y += -gravity * delta
 	var input = Input.get_vector("left", "right", "forward", "back")
 	var movement_dir = transform.basis * Vector3(input.x, 0, input.y)
-	velocity.x = movement_dir.x * SPEED_current
-	velocity.z = movement_dir.z * SPEED_current
+	velocity.x = movement_dir.x * playerSPEED_current
+	velocity.z = movement_dir.z * playerSPEED_current
 
 
 	if  Input.is_action_just_pressed("jump"):
 		if jump_single or jump_double or jump_triple:
 			Global_Audio.play("sounds/player/jump_a.ogg, sounds/player/jump_b.ogg, sounds/player/jump_c.ogg, sounds/player/jump1.wav")
-			SPEED_current += .1
+			playerSPEED_current += .1
 			jump_strength_current += .1
 			
 		
@@ -177,7 +177,7 @@ func _input(event):
 func normalspeed():
 	normal_speed = true
 	jump_strength_current = jump_strength
-	SPEED_current = SPEED
+	playerSPEED_current = playerSPEED
 
 	#Attack function
 func shoot():

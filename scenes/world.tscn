@@ -1,10 +1,24 @@
-[gd_scene load_steps=17 format=3 uid="uid://clqou2thudebq"]
+[gd_scene load_steps=16 format=3 uid="uid://clqou2thudebq"]
 
+[ext_resource type="Texture2D" uid="uid://byo4qqbqkkib0" path="res://textures/AllSkyFree_Sky_AnotherPlanet_Equirect.png" id="1_iybux"]
 [ext_resource type="Texture2D" uid="uid://bmwydvunvu82r" path="res://textures/beta/Orange/texture_09.png" id="1_nj87g"]
 [ext_resource type="PackedScene" uid="uid://c6ft8kphqmkqk" path="res://scenes/player/player.tscn" id="2_mabye"]
 [ext_resource type="Script" path="res://scripts/example/rotate_cube_example.gd" id="3_2iewj"]
 [ext_resource type="PackedScene" uid="uid://c5ecg36et78t0" path="res://scenes/enemies/enemy_overlord.tscn" id="4_iemte"]
 [ext_resource type="PackedScene" uid="uid://b157qnpcv7wnf" path="res://scenes/enemies/enemy_thorned_hulk.tscn" id="5_g41ql"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_e1jtp"]
+panorama = ExtResource("1_iybux")
+
+[sub_resource type="Sky" id="Sky_osxsi"]
+sky_material = SubResource("PanoramaSkyMaterial_e1jtp")
+
+[sub_resource type="Environment" id="Environment_ccnfr"]
+background_mode = 2
+sky = SubResource("Sky_osxsi")
+sky_rotation = Vector3(-0.331613, -0.120428, 0.218166)
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y17yx"]
 albedo_texture = ExtResource("1_nj87g")
@@ -32,22 +46,10 @@ up_vector_enabled = false
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_prttk"]
 albedo_color = Color(1, 0, 0, 1)
 
-[sub_resource type="QuadMesh" id="QuadMesh_3y421"]
-size = Vector2(200, 10)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_70u1g"]
-points = PackedVector3Array(100, 5, 0, 100, -5, 0, -100, 5, 0, -100, -5, 0)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ik5lj"]
-points = PackedVector3Array(100, 5, 0, 100, -5, 0, -100, 5, 0, -100, -5, 0)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8kh1c"]
-points = PackedVector3Array(100, 5, 0, 100, -5, 0, -100, 5, 0, -100, -5, 0)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_e37op"]
-points = PackedVector3Array(100, 5, 0, 100, -5, 0, -100, 5, 0, -100, -5, 0)
-
 [node name="world" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ccnfr")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -62,7 +64,7 @@ shape = SubResource("ConvexPolygonShape3D_6md6o")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00286245, 2.38419e-07, 75.7838)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7, 0)
+transform = Transform3D(-0.886505, 0.416892, 0.200774, 0.448313, 0.881267, 0.149614, -0.114562, 0.222643, -0.968145, 0, 7, 0)
 light_color = Color(0.294118, 0.294118, 0.294118, 1)
 shadow_enabled = true
 
@@ -72,6 +74,7 @@ script = ExtResource("3_2iewj")
 
 [node name="Lookpoint_Blue" type="CSGBox3D" parent="RotationRange" groups=["lookpoint", "lookspot_blue"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.423, 12.3396, 0)
+transparency = 0.65
 size = Vector3(10, 10, 10)
 material = SubResource("StandardMaterial3D_t8syq")
 
@@ -103,45 +106,22 @@ material = SubResource("StandardMaterial3D_prttk")
 
 [node name="outer_walls" type="Node3D" parent="."]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="outer_walls"]
+[node name="CSGBox3D" type="CSGBox3D" parent="outer_walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0753326, -1.04863, -142.998)
+use_collision = true
+size = Vector3(400, 4, 100)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="outer_walls/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -100)
-mesh = SubResource("QuadMesh_3y421")
+[node name="CSGBox3D2" type="CSGBox3D" parent="outer_walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0753326, -1.04863, 145.689)
+use_collision = true
+size = Vector3(400, 4, 100)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="outer_walls/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -100)
-shape = SubResource("ConvexPolygonShape3D_70u1g")
+[node name="CSGBox3D3" type="CSGBox3D" parent="outer_walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150.317, -1.04863, 1.30452)
+use_collision = true
+size = Vector3(99.5486, 4, 188.762)
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="outer_walls"]
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="outer_walls/StaticBody3D2"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 5, 100)
-mesh = SubResource("QuadMesh_3y421")
-skeleton = NodePath("../../StaticBody3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="outer_walls/StaticBody3D2"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 5, 100)
-shape = SubResource("ConvexPolygonShape3D_ik5lj")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="outer_walls"]
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="outer_walls/StaticBody3D3"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -100, 5, 4.37114e-06)
-mesh = SubResource("QuadMesh_3y421")
-skeleton = NodePath("../../StaticBody3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="outer_walls/StaticBody3D3"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -100, 5, 4.37114e-06)
-shape = SubResource("ConvexPolygonShape3D_8kh1c")
-
-[node name="StaticBody3D4" type="StaticBody3D" parent="outer_walls"]
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="outer_walls/StaticBody3D4"]
-transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 100, 5, -4.37114e-06)
-mesh = SubResource("QuadMesh_3y421")
-skeleton = NodePath("../../StaticBody3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="outer_walls/StaticBody3D4"]
-transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 100, 5, -4.37114e-06)
-shape = SubResource("ConvexPolygonShape3D_e37op")
+[node name="CSGBox3D4" type="CSGBox3D" parent="outer_walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150.169, -1.32086, 1.34292)
+use_collision = true
+size = Vector3(100, 4, 188.593)
