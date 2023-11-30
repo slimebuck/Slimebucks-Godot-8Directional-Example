@@ -882,6 +882,7 @@ script = ExtResource("1_1jq2j")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." groups=["sprite"]]
 transform = Transform3D(10, -8.14907e-10, -1.90735e-06, 3.49185e-10, 9.99832, 0.183075, -6.39379e-12, -0.183075, 9.99832, -1.49012e-08, 4.77504, -0.0019087)
+billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_82gk6")
 animation = &"chase_front"

@@ -109,8 +109,6 @@ func sprite_process(delta):
 
 	###PART OF EXAMPLE - NOT PART OF MAIN PROJECT ###
 	### controls the path speed if move is allowed
-	#if sprite.path_move_allow:
-		#sprite.move_path_allow(delta)
 
 	#var path :Node
 	if sprite_1.sprite3d.path_1_move_allow:
@@ -132,12 +130,6 @@ func get_positions():
 	sprite.lookpoint_position = sprite.lookpoint.global_transform.origin
 	sprite.sprite_position = sprite.global_transform.origin
 
-
-	### Billboards the sprite so it always looks at the player
-	sprite.cam_pos = player.global_transform.origin
-	sprite.look_at(sprite.player_position, Vector3(0, 1, 0))
-	rotation.x = 0
-
 	## Get Vectors between the 3 positions
 	player_to_sprite = sprite.sprite_position - sprite.player_position
 	sprite_to_lookpoint = sprite.sprite_position - sprite.lookpoint_position
@@ -151,7 +143,7 @@ func get_positions():
 	angle_sprite_to_lookpoint = rad_to_deg(angle_sprite_to_lookpoint)
 
 	## Math to figure out degrees of sprite to lookpoint
-	var adjusted_degrees = angle_sprite_to_lookpoint - angle_player_to_sprite
+	var adjusted_degrees = angle_player_to_sprite - angle_sprite_to_lookpoint
 
 	## Use fmod to force degrees between 0 and 360
 	adjusted_degrees = fmod(adjusted_degrees + 360.0, 360.0)

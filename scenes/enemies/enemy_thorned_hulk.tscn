@@ -2382,6 +2382,7 @@ script = ExtResource("1_kdqac")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." groups=["sprite"]]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 9, 0)
+billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_82gk6")
 animation = &"ra_attack_front_left"
