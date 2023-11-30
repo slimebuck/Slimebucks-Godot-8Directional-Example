@@ -74,9 +74,7 @@ func _process(_delta):
 			spot_connector = "stopped"
 		else:
 			$lookpoint2.text = spot_connector
-			print(ui_sprite_select)
-	
-	
+
 func change_key_color():
 	if Input.is_action_just_pressed("sprite_chase_1"):
 		$white_keys/i.visible = false
@@ -125,3 +123,6 @@ func change_key_color():
 		$red_keys/m.visible = false
 		
 		### END OF EXAMPLE UI SCRIPT
+
+	
+	
